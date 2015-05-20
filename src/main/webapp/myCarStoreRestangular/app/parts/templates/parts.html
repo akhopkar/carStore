@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h3>Parts View</h3>
+</div>
+
+
+<a ui-sref="parts.add" class="btn btn-info">Add Part</a>
+
+<div class="row">
+  <div class="span3">
+    <div class="pa-sidebar well well-small">
+      <ul class="nav nav-list">       
+        <li class="nav-header">Parts</li>
+
+        <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
+             AND if it is the link for the active contact (aka contactId) -->
+        <li ng-repeat="part in partList" ui-sref-active="active">
+
+          <!-- Here's a ui-sref that is also providing necessary parameters -->
+          <a ui-sref="parts.detail({partId:part.id})">{{part.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Our unnamed main ui-view for this template -->
+  <div ui-view class="span9 slide"></div>
+</div>

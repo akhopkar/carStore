@@ -1,0 +1,23 @@
+<form name="addCarStep1Form" novalidate>
+	<div>
+		<label for="year"><b>Year</b></label>
+		<input ng-minlength="4" ng-maxlength="4" type="text" name="year" ng-model="car.year" required>
+		<span ng-show="addCarStep1Form.year.$dirty && addCarStep1Form.year.$error.required">Required</span>
+		<span ng-show="addCarStep1Form.year.$dirty && addCarStep1Form.year.$error.minlength">Too Short</span>
+		<span ng-show="addCarStep1Form.year.$dirty && addCarStep1Form.year.$error.maxlength">Too Long</span>		
+	</div>
+
+	<div>
+		<label for="make"><b>Make</b></label>
+		<input type="text" name="make" ng-model="car.make" required>
+		<span ng-show="addCarStep1Form.make.$dirty && addCarStep1Form.make.$error.required">Required</span>		
+	</div>
+
+	<div>
+		<label for="cmodel"><b>Model</b></label>
+		<input type="text" name="cmodel" ng-model="car.cmodel" required>
+		<span ng-show="addCarStep1Form.cmodel.$dirty && addCarStep1Form.cmodel.$error.required">Required</span>		
+	</div>
+
+
+</form>	

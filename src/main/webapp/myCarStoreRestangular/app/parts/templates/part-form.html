@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h3>Add/Edit Part</h3>
+</div>
+
+<form name="partForm" ng-submit="submitPart()" novalidate>
+	<div>
+		<label for="brand"><b>Brand</b></label>
+		<input ng-minlength="5" ng-maxlength="10" type="text" name="brand" ng-model="part.brand" required>
+		<span ng-show="partForm.brand.$dirty && partForm.brand.$error.required">Required</span>
+		<span ng-show="partForm.brand.$dirty && partForm.brand.$error.minlength">Too Short</span>
+		<span ng-show="partForm.brand.$dirty && partForm.brand.$error.maxlength">Too Long</span>
+		
+	</div>
+
+	<div>
+		<label for="pmodel"><b>Model</b></label>
+		<input ng-minlength="5" ng-maxlength="10"  type="text" name="pmodel" ng-model="part.pmodel" required>
+		<span ng-show="partForm.pmodel.$dirty && partForm.pmodel.$error.required">Required</span>
+		<span ng-show="partForm.pmodel.$dirty && partForm.pmodel.$error.minlength">Too Short</span>
+		<span ng-show="partForm.pmodel.$dirty && partForm.pmodel.$error.maxlength">Too Long</span>
+
+	</div>
+
+	<div>
+		<label for="name"><b>Name</b></label>
+		<input ng-minlength="5" type="text" name="name" ng-model="part.name" required>
+		<span ng-show="partForm.name.$dirty && partForm.name.$error.required">Required</span>
+		<span ng-show="partForm.name.$dirty && partForm.name.$error.minlength">Too Short</span>
+		<span ng-show="partForm.name.$dirty && partForm.name.$error.maxlength">Too Long</span>
+
+	</div>
+
+	<input type="submit" ng-disabled="partForm.$invalid" >
+
+</form>	
+
+Name Min = {{partForm.name.$error.minlength}}

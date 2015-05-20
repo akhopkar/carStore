@@ -1,0 +1,278 @@
+<html ng-app="jsDataTest">
+	<head>
+	    <script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/js-data/dist/js-data.js"></script>
+		<!--
+		<script src="bower_components/js-data-http/dist/js-data-http.js"></script>
+		-->
+
+		<script src="../bower_components/js-data-localstorage/dist/js-data-localstorage.js"></script>
+	    <script src="bower_components/js-data-angular/dist/js-data-angular.js"></script>
+	    
+		<script src="run-adapter.js"></script>
+		<script src="part-model.js"></script>
+		<script src="car-model.js"></script>
+		<script src="test-model.js"></script>
+		<!--
+		<script src="serializer-main.js"></script>
+	-->
+		<script src="controller.js"></script>
+		<script src="run-main.js"></script>
+		
+	    
+
+	    <script>
+		angular.module('jsDataTest', ['js-data', 'run-adapter', 'part-model', 'car-model', 'test-model', /* 'serializer-main', */ 'controller-main', 'run-main'])		  
+	    </script>
+	</head>
+	<body >
+
+	  <div ng-controller="testCtrl">	
+		
+
+	  	<table border="1">
+	  		<tr>
+	  			<th>--PARTS--</th>
+				<th>--CARS--</th>
+				<th>--PART LINE ITEM--</th>
+				<th>--TESTS--</th>
+				<th>--TEST ACTIONS--</th>				
+			</tr>
+			<tr>
+				<td>		
+
+					<table>
+						<tr>
+							<th>ID</th>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Name</th>
+							<th>&nbsp;</th>					
+						</tr>	
+						<tr ng-repeat="part in parts">
+							<td>{{part.id}}</td>
+							<td>{{part.brand}}</td>
+							<td>{{part.pmodel}}</td>	
+							<td>{{part.name}}</td>
+							<td><button ng-click="selectPart(part)">Select</button></td>
+						</tr>	
+						
+
+					</table>
+
+				</td>	
+
+				<td>		
+
+					<table>
+						<tr>
+							<th>ID</th>
+							<th>Year</th>
+							<th>Make</th>
+							<th>Model</th>	
+							<th>&nbsp;</th>									
+						</tr>	
+						<tr ng-repeat="car in cars">
+							<td>{{car.id}}</td>
+							<td>{{car.year}}</td>
+							<td>{{car.make}}</td>	
+							<td>{{car.cmodel}}</td>
+							<td><button ng-click="selectCar(car)">Select</button></td>
+						</tr>	
+						
+
+					</table>
+
+				</td>
+				<td>		
+
+					<table>
+						<tr>
+							<th>Car ID</th>
+							<th>Part ID</th>
+							<th>Quantity</th>	
+							<th><button ng-click="logPLIStore()">Log Store</button></th>									
+						</tr>	
+						<tr ng-repeat="pli in partLineItems">
+							<td>{{pli.carId}}</td>
+							<td>{{pli.partId}}</td>	
+							<td>{{pli.quantity}}</td>
+							<td>
+								<button ng-click="selectPLI(pli)">Select</button>
+								<button ng-click="removePLI(pli)">Del</button>
+							</td>
+						</tr>	
+						
+
+					</table>
+
+				</td>		
+				<td>
+					<table>
+						<tr>
+							<th>Test ID</th>
+							<th>Int</th>
+							<th>Date</th>	
+							<th>String</th>									
+							<th>Bool</th>
+							<th>&nbsp;</th>
+						</tr>	
+						<tr ng-repeat="test in tests">
+							<td>{{test.id}}</td>
+							<td>{{test.intVal}}</td>	
+							<td>{{test.dateVal}}</td>
+							<td>{{test.stringVal}}</td>
+							<td>{{test.booleanVal}}</td>							
+							<td>
+								<button ng-click="selectTest(test)">Select</button>
+								<button ng-click="removeTest(test)">Delete</button>
+							</td>
+						</tr>	
+						
+
+					</table>
+
+				</td>		
+				<td>
+					<table>
+						<tr>
+							<th>Action ID</th>
+							<th>Test ID</th>
+							<th>Name</th>
+							<th>Desc</th>
+
+							<th>&nbsp;</th>
+						</tr>	
+						<tr ng-repeat="act in myActions">
+							<td>{{act.id}}</td>
+							<td>{{act.testId}}</td>	
+							
+							<td>{{act.name}}</td>	
+							<td>{{act.description}}</td>
+							<td>
+								<button ng-click="removeMyAction(act)">Delete</button>
+							</td>
+						</tr>	
+						
+
+					</table>
+
+				</td>				
+			</tr>
+			
+			<tr>
+	  			<th>--SELECTED PART--</th>
+				<th>--SELECTED CAR--</th>
+				<th>--SELECTED PART LINE ITEM--</th>
+				<th>--SELECTED TEST--</th>				
+			</tr>
+
+			<tr>
+	  			<td>
+	  				<table>
+	  					<tr>
+	  						<td><i>Brand</i></td>
+	  						<td>{{selectedPart.brand}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Model</i></td>
+	  						<td>{{selectedPart.pmodel}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Name</i></td>
+	  						<td>{{selectedPart.name}}</td>
+	  					</tr>	  						  							  					  
+	  				</table>
+	  			</td>
+	  			<td>
+	  				<table>
+	  					<tr>
+	  						<td><i>Year</i></td>
+	  						<td>{{selectedCar.year}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Make</i></td>
+	  						<td>{{selectedCar.make}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Model</i></td>
+	  						<td>{{selectedCar.cmodel}}</td>
+	  					</tr>	  						  							  			<tr>
+	  						<td><i>PartLineItems</i></td>
+	  						<td>
+	  							<table>
+	  								<tr ng-repeat="pli in selectedCar.partLineItems">
+	  									<td>PART: {{pli.partId}}</td>	
+	  									<td>CAR: {{pli.carId}}</td>	
+	  									<td>QTY: {{pli.quantity}}</td>		  									
+	  								</tr>	
+	  							</table>	
+
+	  						</td>
+	  					</tr>	
+
+
+	  				</table>	  				
+	  				
+	  				  
+	  			
+	  			</td>
+	  			<td>
+	  				<table>
+	  					<tr>
+	  						<td><i>Part ID</i></td>
+	  						<td>{{selectedPLI.partId}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Car ID</i></td>
+	  						<td>{{selectedPLI.carId}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Quantity</i></td>
+	  						<td>{{selectedPLI.quantity}}</td>
+	  					</tr>	  						  							  					  
+	  				</table>
+	  			</td>	  			
+	  			<td>
+	  				<table>
+	  					<tr>
+	  						<td><i>String</i></td>
+	  						<td>{{selectedTest.stringVal}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Integer</i></td>
+	  						<td>{{selectedTest.intVal}}</td>
+	  					</tr>
+	  					<tr>
+	  						<td><i>Boolean</i></td>
+	  						<td>{{selectedTest.booleanVal}}</td>
+	  					</tr>	  						  							  					  
+	  				</table>
+	  			</td>				
+
+			</tr>
+
+			<tr>
+				<td colspan="3">
+					<button ng-click="createPartLineItem()">CREATE PART LINE ITEM</button>
+					<button ng-click="createMyAction()">CREATE TEST ACTION</button>					
+				</td>
+			</tr>
+
+		</table>	
+
+
+
+	  </div>	
+
+	  <div ng-controller="testCtrl2">	
+		<button ng-click="addRandomPart()">Add Random Part</button>
+		<button ng-click="addRandomCar()">Add Random Car</button>
+		<button ng-click="addRandomTest()">Add Random Test</button>		
+	  </div>
+
+
+	</body>
+
+
+</html>

@@ -1,0 +1,49 @@
+
+
+<div class="row">
+
+  <div class="span9">
+
+  	<table class="table">
+  		<tr>
+  			<th >Part</th>
+  			<th >Qty</th>
+  			<th>&nbsp;</th>
+  		</tr>
+  		<tr ng-repeat="pli in partLineItemList track by pli.id">
+  			<td>{{pli.part.name}} ({{pli.part.brand}} {{pli.part.pmodel}}) </td>
+  			<td>{{pli.quantity}}</td>
+  			<td>
+				<button class="btn btn-sm btn-success" ng-click="incrementPartQty(pli)" >+</button>
+				<button class="btn btn-sm btn-info" ng-click="decrementPartQty(pli)" >-</button>
+				<button class="btn btn-sm btn-danger" ng-click="removePartFromCar(pli)" >x</button>	
+
+  			</td>
+  			</td>
+  		</tr>	  
+      <tr>
+        <td><b>Total</b></td>  
+        <td><b></b></td>  
+        <td>&nbsp;</td>  
+        
+      </tr>			
+  	</table>	
+
+
+  </div>
+  <div class="span3">
+    <table class="table">
+    	<tr><th colspan="2">Parts</th></tr>
+    	<tr ng-repeat="part in partsList">
+          <td>{{part.name}}</td>
+          <td align="right">
+          	<button class="btn btn-info btn-small" ng-click="addPartToCar(part)" >Add</button>
+          </td>
+        </tr>  
+    </table>   
+
+
+  </div>  
+
+</div>
+

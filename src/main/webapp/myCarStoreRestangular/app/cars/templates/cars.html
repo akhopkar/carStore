@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h3>View Cars</h3>
+</div>
+
+<a ui-sref="addCar.step1" class="btn btn-info">Add New Car</a>
+
+<table class="table">
+	<tr>
+		<th>Year</th>
+		<th>Make</th>
+		<th>Model</th>
+		<th>Status</th>		
+		<th>&nbsp;</th>
+	</tr>
+	
+	<tr ng-repeat="car in carList">
+		<td>{{car.year}}</td>
+		<td>{{car.make}}</td>
+		<td>{{car.cmodel}}</td>		
+		<td>{{car.status}}</td>
+		<td><button ng-hide="isConfirmed()" ng-click="continueDraft(car)" class="btn btn-default">Continue</button></td>
+	</tr>	
+	
+</table>

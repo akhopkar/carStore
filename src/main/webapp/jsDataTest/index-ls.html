@@ -1,0 +1,97 @@
+<html ng-app="localStorage">
+	<head>
+	    <script src="bower_components/angular/angular.js"></script>
+		
+		<script src="bower_components/js-data/dist/js-data.js"></script>
+		<script src="../bower_components/js-data-localstorage/dist/js-data-localstorage.js"></script>
+		
+	    <script src="bower_components/js-data-angular/dist/js-data-angular.js"></script>
+	    
+		<script>
+		angular.module('localStorage', ['js-data' ])
+
+
+		  .run(function (DS) {
+
+		    DS.registerAdapter('localstorage', new DSLocalStorageAdapter(), { default: true });
+
+
+		  })
+		  .factory('User', function (DS) {
+		    
+		    alert('DEFINING USER RESOURCE ');
+		    return DS.defineResource('user');
+
+		  })
+
+		  /*
+		  .factory('store', function () {
+		    var store = new JSData.DS();
+
+		    store.registerAdapter('localstorage', new DSLocalStorageAdapter(), { default: true });
+
+		    console.log('STORE FACTORY CREATED');
+		    return store;
+
+		  })
+		  .factory('User', function (store) {
+		    
+		    alert('DEFINING USER RESOURCE ');
+		    return store.defineResource('user');
+
+		  }) */
+		  .controller('localStorageCtrl', function ($scope, User) {
+
+		    var lsCtrl = this;
+
+		    User.findAll().then(function (users) {
+		      $scope.users = users;
+		    });
+
+		    User.bindAll({}, $scope, 'users');
+	
+		    $scope.add = function (user) {
+		      return User.create(user).then(function () {
+		        lsCtrl.name = '';
+		      });
+		    };
+
+		    $scope.remove = function (user) {
+		      return User.destroy(user.id);
+		    };
+
+		    alert('CONTROLLER CREATED');
+			
+		  });
+
+		</script>
+		
+	    
+
+
+	</head>
+	<body ng-controller="localStorageCtrl">
+
+		GREETING = {{greeting}}
+		USERS = {{users}}
+
+<div class="list-group">
+  <div class="list-group-item" ng-repeat="user in users track by user.id">
+    <div class="pull-right">
+      <button class="btn btn-xs btn-danger" ng-click="remove(user)">
+        Delete
+      </button>
+    </div>
+    {{ user.id }}: {{ user.name }}
+  </div>
+  <div class="list-group-item">
+    <form id="user-form" name="user-form" ng-submit="add({ name: lsCtrl.name })">
+
+      <input class="form-control" type="text" ng-model="lsCtrl.name" id="name" name="name"
+             placeholder="Enter a name and press enter"/>
+      <input type="submit" class="hidden"/>
+    </form>
+  </div>
+</div>
+	</body>
+</html>	  	

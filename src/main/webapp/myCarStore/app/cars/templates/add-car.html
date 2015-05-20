@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h3>Add New Car</h3>
+</div>
+
+
+ <div class="well">
+   <div class="row">
+    <div>
+      <div class="btn-group btn-group-justified">
+    		<span ng-class="{active: isStep1}" class="btn btn-lg btn-default">Step 1: General Car Info</span>
+    		<span ng-class="{active: isStep2}" class="btn btn-lg btn-default">Step 2: Add Parts to Car</span>
+        	<span ng-class="{active: isStep3}" class="btn btn-lg btn-default">Finish</span>        
+      </div>          
+
+                <button ng-hide="hidePrevious" ng-click="previousStep()" class="btn btn-lg btn-warning pull-right">Previous
+                </button>
+
+                <button ng-hide="hideNext" ng-click="nextStep()" class="btn btn-lg btn-success pull-right">Next
+                </button>
+
+    </div>            
+  </div>
+</div>
+<hr/>
+
+<div ui-view class="row slide"></div>
